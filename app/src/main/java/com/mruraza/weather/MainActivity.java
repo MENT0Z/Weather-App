@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().hide();
         cityname = findViewById(R.id.cityname);
         donebutton = findViewById(R.id.donebotton);
         TVforres = findViewById(R.id.resulttv);
@@ -74,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                                     String citynaem = jsonObject.getString("name");
 
 
-                                    String formattedTemperature = String.format("%.2f", temperature);
+                                    String formattedTemperature = String.format("%.2f", temperature)+"°C";
                                     String formattedFeelsLike = String.format("%.2f", feels_like);
 
                                     String output = "Country = " + country + "\nCity = " + citynaem
@@ -87,6 +89,52 @@ public class MainActivity extends AppCompatActivity {
                                     TVforres.setText(output);
 
                                     temperatureshpw.setText(formattedTemperature);
+
+                                    if (description.contains("cloud")
+                                    ) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.cloudy);
+
+                                    } else if (description.contains("raining")|| description.contains("rain")|| description.contains("drizzle") ) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.rasinny);
+                                    } else if (description.contains("mist")) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.mist);
+
+                                    }
+                                    else if (description.contains("snow")) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.snow);
+
+                                    }
+
+                                    else if (description.contains("sunny")) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.sunny);
+                                    } else if (description.contains("thunderstorm")) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.thubder);
+                                    }
+
+                                    else if (description.contains("clear sky")) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.sunny);
+                                    }
+                                    else if (description.contains("haze")) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.haze);
+
+                                    } else if (description.equals("haze")) {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.haze);
+
+                                    }
+
+                                    else {
+                                        View activityview = getWindow().getDecorView();
+                                        activityview.setBackgroundResource(R.drawable.background1);
+                                    }
 
 
                                 } catch (JSONException e) {

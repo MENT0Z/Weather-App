@@ -50,6 +50,7 @@ public class home_page_curr_condn extends AppCompatActivity {
 
         setContentView(R.layout.activity_home_page_curr_condn);
         btntonextpage = findViewById(R.id.globalweatherbtn);
+        getSupportActionBar().hide();
 
         tempid = findViewById(R.id.tempid);
         txtt = findViewById(R.id.resulttvcurr);
@@ -97,6 +98,7 @@ public class home_page_curr_condn extends AppCompatActivity {
 
 
 
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
@@ -139,7 +141,7 @@ public class home_page_curr_condn extends AppCompatActivity {
                     String country = jsonobjsys.getString("country");
                     String citynaem = jsonObject.getString("name");
 
-                    String formattedTemperature = String.format("%.2f", temperature);
+                    String formattedTemperature = String.format("%.2f", temperature)+"°C";
                     String formattedFeelsLike = String.format("%.2f", feels_like);
 
                     String output = "Country = " + country + "\nCity = " + citynaem
@@ -152,6 +154,49 @@ public class home_page_curr_condn extends AppCompatActivity {
                     newarr.add(description);
                     tempid.setText(formattedTemperature);
 
+                    if (description.contains("cloud")
+                    ) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.cloudy);
+                        
+                    } else if (description.contains("raining")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.rasinny);
+                    } else if (description.contains("mist")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.mist);
+                        
+                    } else if (description.contains("sunny")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.sunny);
+                    }
+                    else if (description.contains("clear sky")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.sunny);
+                    }
+                    else if (description.contains("haze")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.haze);
+
+                    }
+
+                    else if (description.contains("snow")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.snow);
+
+                    }
+
+                    else if (description.equals("haze")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.haze);
+
+                    } else if (description.contains("thunderstorm")) {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.thubder);
+                    }else {
+                        View activityview = getWindow().getDecorView();
+                        activityview.setBackgroundResource(R.drawable.background_home);
+                    }
 
 
                 } catch (JSONException e) {
